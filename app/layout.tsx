@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
         <Suspense fallback={null}>
           <ThemeProvider defaultTheme="dark">
             {children}
