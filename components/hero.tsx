@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 import { useEffect, useState, Suspense } from "react"
 import { Scene3D } from "./3d-scene"
-import Image from "next/image"
 
 export function Hero() {
   const [mounted, setMounted] = useState(false)
@@ -154,12 +153,11 @@ export function Hero() {
               <div className="relative aspect-square max-w-xs mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full transform group-hover:scale-105 transition-transform duration-500" />
                 <div className="relative h-full w-full rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary/60 transition-colors duration-500">
-                  <Image
-                    src="/nikhil-profile.jpg"
+                  <img
+                    src={`${process.env.NODE_ENV === 'production' ? '/mass123' : ''}/nikhil-profile.jpg`}
                     alt="Nikhil Obuleni"
-                    fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
-                    priority
+                    className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
+                    loading="eager"
                   />
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
