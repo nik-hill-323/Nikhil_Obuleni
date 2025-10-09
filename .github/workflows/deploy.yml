@@ -5,6 +5,7 @@ on:
     branches:
       - main
   workflow_dispatch:
+  # Triggered on push to main branch
 
 permissions:
   contents: read
