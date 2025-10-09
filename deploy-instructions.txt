@@ -1,0 +1,46 @@
+🚀 QUICK DEPLOY TO VERCEL - 3 EASY STEPS
+==========================================
+
+Your portfolio is ready! Here's the EASIEST way to deploy:
+
+📌 STEP 1: Create GitHub Repository
+------------------------------------
+1. Go to: https://github.com/new
+2. Repository name: nikhil-portfolio
+3. Keep it Public
+4. Click "Create repository"
+5. DON'T initialize with README (we already have code)
+
+📌 STEP 2: Push Code to GitHub
+-------------------------------
+Copy and paste these commands ONE AT A TIME:
+
+git remote add origin https://github.com/YOUR_USERNAME/nikhil-portfolio.git
+git branch -M main
+git push -u origin main
+
+(Replace YOUR_USERNAME with your actual GitHub username)
+
+📌 STEP 3: Deploy on Vercel
+----------------------------
+1. Go to: https://vercel.com/new
+2. Sign in with GitHub (or create account)
+3. Click "Import" next to your nikhil-portfolio repo
+4. Click "Deploy" (that's it!)
+
+⏱️ Wait 2-3 minutes and you'll get your live URL!
+
+🔐 OPTIONAL: Add Email Functionality
+-------------------------------------
+After deployment, in Vercel dashboard:
+1. Go to Settings → Environment Variables
+2. Add:
+   - Key: RESEND_API_KEY
+   - Value: (your Resend API key from resend.com)
+3. Redeploy
+
+📝 NEED MORE HELP?
+------------------
+See DEPLOYMENT.md for detailed instructions and troubleshooting.
+
+Your portfolio will be live at: https://nikhil-portfolio-[random].vercel.app
