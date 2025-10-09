@@ -154,7 +154,7 @@ export function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full transform group-hover:scale-105 transition-transform duration-500" />
                 <div className="relative h-full w-full rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary/60 transition-colors duration-500">
                   <img
-                    src={`${process.env.NODE_ENV === 'production' ? '/mass123' : ''}/nikhil-profile.jpg`}
+                    src={`${process.env.NODE_ENV === 'production' ? '/Nikhil_Obuleni' : ''}/nikhil-profile.jpg`}
                     alt="Nikhil Obuleni"
                     className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
                     loading="eager"
