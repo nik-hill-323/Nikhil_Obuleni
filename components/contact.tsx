@@ -183,7 +183,7 @@ export function Contact() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">Location</h3>
-                  <p className="text-sm text-muted-foreground">Arlington, VA</p>
+                  <p className="text-sm text-muted-foreground">Washington, DC</p>
                 </div>
               </div>
             </Card>

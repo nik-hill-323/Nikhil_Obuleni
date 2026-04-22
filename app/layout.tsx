@@ -20,9 +20,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Nikhil Obuleni | Data Scientist & Analytics Expert",
+  title: "Nikhil Obuleni | Data Scientist",
   description:
-    "Portfolio of Nikhil Obuleni - Data Scientist specializing in healthcare analytics, machine learning, and predictive modeling",
+    "Portfolio of Nikhil Obuleni — MS Data Science candidate at George Washington University with 3+ years building ML models, deep learning systems, and ETL pipelines across humanitarian, aerospace, and NLP domains.",
   generator: "v0.app",
 }
 

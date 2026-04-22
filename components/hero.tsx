@@ -75,11 +75,11 @@ export function Hero() {
               }`}
               style={{ transitionDelay: "600ms" }}
             >
-              I'm a Data Scientist specializing in{" "}
-              <span className="text-primary font-semibold">healthcare analytics</span>,{" "}
-              <span className="text-accent font-semibold">machine learning</span>, and{" "}
-              <span className="text-secondary font-semibold">predictive modeling</span>. Currently pursuing my MS in
-              Data Science at George Washington University.
+              I'm a Data Scientist with 3+ years building{" "}
+              <span className="text-primary font-semibold">machine learning models</span>,{" "}
+              <span className="text-accent font-semibold">deep learning systems</span>, and{" "}
+              <span className="text-secondary font-semibold">ETL pipelines</span> across humanitarian, aerospace, and
+              NLP domains. Currently pursuing my MS in Data Science at George Washington University.
             </p>
 
             <div
@@ -115,7 +115,7 @@ export function Hero() {
               style={{ transitionDelay: "1000ms" }}
             >
               <a
-                href="https://github.com"
+                href="https://github.com/nik-hill-323"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-125 hover:-translate-y-2"

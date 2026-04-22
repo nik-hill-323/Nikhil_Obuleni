@@ -10,54 +10,41 @@ const projects = [
   {
     title: "Retail Demand Forecasting & Price Optimization",
     description:
-      "Built an end-to-end demand forecasting system leveraging PySpark and XGBoost for a multi-store retail chain.",
+      "Built an end-to-end demand forecasting system using Python, PySpark, and XGBoost across a multi-store retail chain, plus an A/B-tested markdown optimization algorithm.",
     achievements: [
-      "93% accuracy in demand forecasting",
+      "93% forecasting accuracy",
       "Reduced stockouts by 35%",
-      "Enhanced revenue by 15%",
-      "Improved profitability by 12% with automated markdown optimization",
+      "Improved profitability by 12% via markdown optimization",
+      "End-to-end pipeline from ingestion to deployment",
     ],
-    technologies: ["PySpark", "XGBoost", "Python", "Machine Learning", "Optimization"],
-    impact: "$100M+ revenue impact",
+    technologies: ["Python", "PySpark", "XGBoost", "A/B Testing", "Optimization"],
+    impact: "Profitability uplift",
   },
   {
-    title: "Netflix Content Recommendation & Churn Prediction",
+    title: "Netflix — Content Recommendation & Churn Prediction",
     description:
-      "Created a content recommendation engine using Graph Neural Networks and Collaborative Filtering, analyzing 10M+ viewer records.",
+      "Created a GNN and Collaborative Filtering recommendation engine on 10M+ viewer records, paired with an XGBoost + LSTM/ANN churn prediction model.",
     achievements: [
       "Boosted engagement by 35%",
       "92% churn prediction accuracy",
       "Reduced subscription churn by 20%",
       "Enabled data-driven retention strategies",
     ],
-    technologies: ["GNN", "Deep Learning", "LSTMs", "XGBoost", "Collaborative Filtering"],
-    impact: "$100M+ revenue impact",
+    technologies: ["GNN", "Collaborative Filtering", "XGBoost", "LSTM", "ANN"],
+    impact: "Retention impact",
   },
   {
     title: "Real-Time Traffic Accident Prediction",
     description:
-      "Applied time-series forecasting models to predict traffic congestion patterns and accident frequency across different time intervals.",
+      "Applied LSTM and Prophet time-series models to predict congestion and accident frequency across city regions, with geospatial analysis to surface hotspots from real-time public datasets.",
     achievements: [
-      "Processed millions of real-time accident records",
-      "Identified high-risk accident hotspots",
-      "Predicted traffic congestion patterns",
-      "Enabled proactive traffic management",
+      "Predicted congestion and accident frequency across regions",
+      "Identified high-risk accident hotspots via geospatial analysis",
+      "Processed real-time public datasets end-to-end",
+      "Interactive mapping with Folium and Plotly Maps",
     ],
-    technologies: ["LSTM", "Prophet", "GIS", "Python", "Folium", "Time-Series Analysis"],
+    technologies: ["LSTM", "Prophet", "GIS", "Folium", "Plotly Maps", "Python"],
     impact: "Public safety enhancement",
-  },
-  {
-    title: "Customer Churn Analysis - Telecom Sector",
-    description:
-      "Analyzed customer behavior and service usage data to identify key churn drivers and develop retention strategies.",
-    achievements: [
-      "90%+ churn prediction accuracy",
-      "Reduced potential churn by 18%",
-      "Segmented high-value retention groups",
-      "Quantified revenue loss from churned customers",
-    ],
-    technologies: ["Logistic Regression", "Random Forest", "K-Means", "Power BI", "CLV Analysis"],
-    impact: "Revenue retention",
   },
 ]
 

@@ -53,9 +53,9 @@ export function About() {
                 }`}
                 style={{ transitionDelay: "100ms" }}
               >
-                I'm a passionate Data Scientist with a proven track record of delivering impactful analytics solutions
-                across healthcare and aerospace industries. My expertise lies in building end-to-end data pipelines,
-                developing predictive models, and creating actionable insights that drive business decisions.
+                I'm a Data Scientist with 3+ years of experience building machine learning models, deep learning
+                systems, and ETL pipelines across humanitarian, aerospace, and NLP domains. I specialize in turning
+                complex, multi-source data into interpretable insights and production-ready systems.
               </p>
               <p
                 className={`text-lg text-muted-foreground leading-relaxed transition-all duration-700 ${
@@ -63,10 +63,12 @@ export function About() {
                 }`}
                 style={{ transitionDelay: "200ms" }}
               >
-                With experience at <span className="text-primary font-semibold">Apollo Hospitals</span> and{" "}
-                <span className="text-accent font-semibold">Asteria Aerospace</span>, I've successfully reduced
-                operational inefficiencies, improved resource allocation, and enhanced decision-making processes through
-                data-driven strategies.
+                Across roles at{" "}
+                <span className="text-primary font-semibold">Data Science for Sustainable Development</span>,{" "}
+                <span className="text-accent font-semibold">Asteria Aerospace</span>, and{" "}
+                <span className="text-secondary font-semibold">Blackoffer</span>, I've delivered forecasting
+                ensembles on humanitarian datasets, real-time computer vision models for drones, and NLP pipelines
+                that improved client campaign targeting.
               </p>
               <p
                 className={`text-lg text-muted-foreground leading-relaxed transition-all duration-700 ${
@@ -74,8 +76,8 @@ export function About() {
                 }`}
                 style={{ transitionDelay: "300ms" }}
               >
-                Currently, I'm pursuing my Master's in Data Science at George Washington University, where I'm deepening
-                my knowledge in advanced machine learning, data mining, and scalable data systems.
+                I'm currently pursuing my MS in Data Science at George Washington University (GPA 3.75, CCAS Global
+                Leaders Fellow), with a focus on machine learning, NLP, and scalable data systems.
               </p>
             </div>
 
@@ -96,12 +98,10 @@ export function About() {
                       <div>
                         <p className="font-medium text-foreground">MS in Data Science</p>
                         <p className="text-sm text-muted-foreground">George Washington University</p>
-                        <p className="text-xs text-muted-foreground">Jan 2025 - Present</p>
-                      </div>
-                      <div>
-                        <p className="font-medium text-foreground">BCA (Bachelor Computer Applications)</p>
-                        <p className="text-sm text-muted-foreground">Presidency University</p>
-                        <p className="text-xs text-muted-foreground">Oct 2021 - Aug 2024</p>
+                        <p className="text-xs text-muted-foreground">Jan 2025 - Present • GPA 3.75</p>
+                        <p className="text-xs text-muted-foreground">
+                          CCAS Global Leaders Fellowship ($17,100, 2025)
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -120,7 +120,7 @@ export function About() {
                   </div>
                   <div className="space-y-2">
                     <h3 className="font-semibold text-lg">Location</h3>
-                    <p className="text-muted-foreground">Arlington, VA</p>
+                    <p className="text-muted-foreground">Washington, DC</p>
                     <p className="text-sm text-muted-foreground">
                       Open to opportunities in the DMV area and remote positions
                     </p>
