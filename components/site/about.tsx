@@ -4,7 +4,7 @@ import { Section } from "./section"
 
 export function About() {
   return (
-    <Section id="about" n="01" label="About" title="Who I am, in a nutshell." tint>
+    <Section id="about" n="01" label="About" title="What I work on" tint>
       <div className="grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:gap-14">
         <div className="space-y-5">
           {about.paragraphs.map((p, i) => (

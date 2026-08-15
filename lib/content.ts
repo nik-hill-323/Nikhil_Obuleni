@@ -1,60 +1,71 @@
+/**
+ * Single source of truth for every word on the site.
+ *
+ * Content comes from Nikhil_Obuleni_AI_Engineer.pdf and
+ * Nikhil_Obuleni_Data_Scientist.pdf. If a number is not in one of those two
+ * resumes, it does not appear on the page.
+ */
+
 export const profile = {
   name: "Nikhil Obuleni",
   monogram: "NO",
-  role: "Data Scientist",
+  role: "AI Engineer",
+  badge: "AI Engineer & Data Scientist",
   location: "Washington, DC",
   email: "nikhil.obuleni@gwu.edu",
   phone: "(571) 478-2007",
   github: "https://github.com/nik-hill-323",
   linkedin: "https://www.linkedin.com/in/nikhil-obuleni",
-  resume: "/Nikhil_Obuleni_Resume.pdf",
-  tags: ["Data Scientist", "ML · Deep Learning", "M.S. Data Science · GW", "Open to DMV / remote"],
+  resume: "/Nikhil_Obuleni_AI_Engineer.pdf",
+  resumeDs: "/Nikhil_Obuleni_Data_Scientist.pdf",
+  status: "Currently building AI & research systems at CGMHE",
+  tags: ["AI Research Engineer", "LLMs / RAG", "M.S. Data Science / GW", "Washington, DC"],
   headline: {
-    lead: "Turning messy data into decisions that",
-    accent: "hold up",
+    lead: "AI Engineer building",
+    accent: "production-grade AI systems",
   },
   summary:
-    "I build machine learning models, deep learning systems, and ETL pipelines that survive contact with real operations — humanitarian field data, aerospace imagery, and noisy text at scale. Three years of it, across research and industry.",
+    "I build LLM and retrieval systems that run in production. At GW's Center for Global Mental Health Equity I work on agent pipelines that score clinical transcripts across 25 countries, RAG grounded in clinical rubrics, and the Airflow and AWS pipelines underneath them. Before that, NLP and forecasting at Data Science for Sustainable Development and computer vision at Asteria Aerospace.",
 }
 
 export const impact = [
   {
-    label: "CCAS Global Leaders Fellowship",
-    value: 17100,
-    prefix: "$",
-    blurb: "Awarded 2025 at the George Washington University while completing my M.S. in Data Science.",
+    label: "Clinical transcripts scored",
+    value: 26000,
+    suffix: "+",
+    blurb: "Multilingual competency scoring across 25 countries, replacing a fully manual WHO/UNICEF review process.",
   },
   {
-    label: "Weighted F1 · disaster impact forecasting",
+    label: "Patient records in production",
+    value: 500000,
+    suffix: "+",
+    blurb: "Airflow and AWS pipelines into PostgreSQL across 25+ countries, on a $2.9M NIMH grant.",
+  },
+  {
+    label: "Lower factual error rate",
+    value: 40,
+    suffix: "%",
+    blurb: "Production RAG grounding LLM output in EQUIP/ENACT clinical rubrics, on held-out multilingual benchmarks.",
+  },
+  {
+    label: "Weighted F1, disaster forecasting",
     value: 78,
     suffix: "%",
-    blurb: "ARIMA + LSTM + XGBoost ensemble over 200K humanitarian records spanning 18 countries.",
-  },
-  {
-    label: "NGO data integration time",
-    value: 48,
-    suffix: " hrs",
-    blurb: "Down from 14 days across 6 partner NGOs, using Apache Airflow DAGs on BigQuery.",
-  },
-  {
-    label: "Surveillance efficiency gain",
-    value: 30,
-    suffix: "%",
-    blurb: "YOLOv5 and Faster R-CNN object detection for real-time drone imagery at Asteria Aerospace.",
+    blurb: "ARIMA, LSTM and XGBoost ensemble over 200K humanitarian records across 18 countries.",
   },
 ]
 
 export const about = {
   paragraphs: [
-    "I work where modeling meets plumbing. The interesting part of a project is rarely the algorithm — it's the 200K rows arriving in six incompatible schemas, the field constraint nobody documented, and the stakeholder who needs the answer to be interpretable before it can be useful.",
-    "Right now I'm an M.S. Data Science candidate at GW (GPA 3.75), running Salesforce data and reporting systems for GW Libraries & Academic Innovation, and consulting on humanitarian forecasting with Data Science for Sustainable Development. Earlier: computer vision and predictive maintenance for drones at Asteria Aerospace, and NLP at scale at Blackoffer.",
-    "The through-line is honest data work — models that are evaluated the way they'll actually be used, and pipelines that hold up when nobody's watching them.",
+    "I work on the engineering side of applied AI: agent pipelines, retrieval systems, evaluation, and the data infrastructure that feeds them. Most of what I build runs against real clinical and humanitarian data, so accuracy and traceability matter more than benchmark scores.",
+    "At GW's Center for Global Mental Health Equity I build LLM systems for WHO and UNICEF evaluation programs. That covers automating counselor competency scoring that used to be done by hand, grounding model output in clinical rubrics, and running the evaluations that show whether results hold across 14 languages.",
+    "Before that I built NLP and LLM-assisted extraction pipelines for NGO reporting at Data Science for Sustainable Development, forecasting models on humanitarian records across 18 countries, and computer vision models for drone systems at Asteria Aerospace.",
   ],
   facts: [
+    { k: "Now", v: "AI Research Engineer, CGMHE" },
     { k: "Based in", v: "Washington, DC" },
-    { k: "Program", v: "M.S. Data Science, GWU · GPA 3.75" },
-    { k: "Focus", v: "Forecasting, deep learning, ETL" },
-    { k: "Open to", v: "DMV & remote roles" },
+    { k: "Program", v: "M.S. Data Science, GWU, GPA 3.75" },
+    { k: "Working on", v: "LLM evaluation, RAG, agent systems" },
   ],
 }
 
@@ -73,68 +84,55 @@ export type Job = {
 export const jobs: Job[] = [
   {
     kind: "Current",
-    period: "Aug 2025 — Present",
-    title: "Student Data & Systems Analyst",
-    org: "GW Libraries & Academic Innovation",
+    period: "May 2026 to Present",
+    title: "AI Research Engineer",
+    org: "Center for Global Mental Health Equity (CGMHE)",
     place: "Washington, DC",
     featured: true,
     blurb:
-      "Own the operational data layer behind facility access and maintenance across the libraries — the records, the reports, and the automation that keeps both current.",
+      "LLM agent pipelines, retrieval systems, and evaluation for WHO and UNICEF mental health programs, plus the data platform they run on.",
     points: [
-      "Maintain Salesforce CRM records for 500+ weekly facility access requests and maintenance ticket lifecycles, keeping data integrity and consistency across university building systems.",
-      "Designed custom Salesforce reports and dashboards for space-utilization KPIs; automated workflows with Salesforce Flow, cutting manual entry time 30% and moving reporting from weekly to daily.",
-      "Reconciled 200+ data discrepancies across Salesforce and university building management systems.",
+      "Shipped an LLM agent pipeline (LangChain, OpenAI API) that automates counselor competency scoring across 26K+ multilingual clinical transcripts in 25 countries, cutting per-session review time from 45 minutes to 4 and replacing a fully manual WHO/UNICEF evaluation process.",
+      "Designed a production RAG system (FAISS, LangChain, FastAPI) grounding LLM output in EQUIP/ENACT clinical rubrics through chunking, reranking, and a hallucination-flagging layer, reducing factual error rate by roughly 40% on held-out multilingual benchmarks.",
+      "Ran LLM evaluation experiments (RAGAS, DeepEval) comparing GPT-4 and Claude against human-annotated ground truth across 14 languages, identifying a 23% calibration gap on low-resource languages that fed into a joint OpenAI collaboration on clinical LLM deployment.",
+      "Built Airflow and AWS (S3, EC2) pipelines ingesting 500K+ patient records into PostgreSQL across 25+ countries on a $2.9M NIMH grant, cutting integration latency 83% and reporting time 60%.",
     ],
-    stack: ["Salesforce CRM", "Salesforce Flow", "SQL", "Dashboards"],
+    stack: ["LangChain", "OpenAI API", "Claude API", "FAISS", "FastAPI", "RAGAS", "Airflow", "AWS"],
   },
   {
-    kind: "Consulting",
-    period: "Feb 2025 — Dec 2026",
-    title: "Data Science Consultant",
+    kind: "Part-time",
+    period: "Feb 2025 to May 2026",
+    title: "ML Engineer",
     org: "Data Science for Sustainable Development",
-    place: "Washington, DC · Part-time",
+    place: "Washington, DC",
     featured: true,
     blurb:
-      "Forecasting disaster impact for humanitarian field teams, and building the pipeline that lets six NGOs share data without a two-week handshake.",
+      "NLP and LLM-assisted extraction for NGO reporting, plus forecasting models for field teams working with limited data infrastructure.",
     points: [
-      "Developed ARIMA, LSTM, and XGBoost ensemble models on 200K+ humanitarian records spanning 18 countries, reaching 78% weighted F1 on disaster impact forecasting.",
-      "Standardized data sharing across 6 partner NGOs with Apache Airflow DAGs on BigQuery — integration time fell from 14 days to 48 hours, enabling near-real-time reporting.",
-      "Designed evaluation metrics aligned with field deployment constraints so outputs stayed interpretable for non-technical stakeholders.",
+      "Automated ingestion and structuring of unstructured sustainability reports using NLP pipelines (spaCy, Hugging Face) and LLM-assisted extraction (OpenAI API, LangChain) for NGO clients, cutting manual data prep time by roughly 60% per project cycle.",
+      "Developed open-source REST APIs (FastAPI, Python) and modular data pipelines for nonprofit and government partners, integrating third-party data feeds with automated schema validation to improve reliability of SDG-aligned reporting tools.",
+      "Deployed ARIMA, LSTM, and XGBoost ensemble models on 200K+ humanitarian records across 18 countries, reaching 78% weighted F1 on disaster impact forecasting.",
     ],
-    stack: ["Python", "ARIMA", "LSTM", "XGBoost", "Airflow", "BigQuery"],
+    stack: ["spaCy", "Hugging Face", "LangChain", "FastAPI", "XGBoost", "LSTM", "Airflow", "BigQuery"],
   },
   {
     kind: "Industry",
-    period: "May 2023 — Aug 2023",
+    period: "May 2023 to Aug 2023",
     title: "Data Science Intern",
     org: "Asteria Aerospace",
     place: "Bangalore, India",
     blurb: "Computer vision and predictive maintenance for a commercial drone fleet.",
     points: [
-      "Built YOLOv5 and Faster R-CNN models for real-time drone object detection, improving surveillance efficiency 30% and target recognition accuracy across varied environmental conditions.",
-      "Deployed LSTM and Random Forest predictive maintenance models forecasting drone failures — unexpected breakdowns down 25%; an Autoencoder + Isolation Forest anomaly system lifted fault detection 40%.",
-      "Ran geospatial analysis on GIS, LiDAR, and satellite imagery, improving navigation accuracy 20% and reducing collision risk 15%.",
+      "Built computer vision models (YOLOv5, Faster R-CNN) for real-time drone object detection, improving surveillance efficiency 30%, and added anomaly detection with Autoencoders and Isolation Forest that improved fault detection 40%.",
+      "Deployed predictive maintenance models (LSTM, Random Forest) forecasting equipment failures, reducing unexpected breakdowns 25%.",
+      "Ran geospatial analysis on GIS, LiDAR, and satellite imagery, improving drone navigation accuracy 20%.",
     ],
-    stack: ["YOLOv5", "Faster R-CNN", "PyTorch", "LiDAR", "GIS"],
-  },
-  {
-    kind: "Industry",
-    period: "Sep 2022 — Nov 2022",
-    title: "Data Science Intern",
-    org: "Blackoffer",
-    place: "Remote",
-    blurb: "NLP at scale on client text corpora, plus the scraping pipeline that fed it.",
-    points: [
-      "Applied sentiment analysis, keyword extraction, and topic modeling across 50,000+ text records, improving client campaign targeting accuracy 18%.",
-      "Automated large-scale text collection with BeautifulSoup and Scrapy, cutting processing time 40% versus the manual process it replaced.",
-      "Built ML models for text classification and clustering, and tuned ETL pipelines for data quality across multiple client projects.",
-    ],
-    stack: ["Python", "NLTK", "BeautifulSoup", "Scrapy", "ETL"],
+    stack: ["PyTorch", "YOLOv5", "Faster R-CNN", "LSTM", "Random Forest", "GIS", "LiDAR"],
   },
 ]
 
 export type Project = {
-  id: "retail" | "netflix" | "traffic"
+  id: "medrag" | "clinrag" | "buildify" | "mhaps" | "netflix"
   index: string
   name: string
   subtitle: string
@@ -144,116 +142,195 @@ export type Project = {
   results: { k: string; v: string }[]
   stack: string[]
   href?: string
+  note?: string
 }
 
 export const projects: Project[] = [
   {
-    id: "retail",
+    id: "medrag",
     index: "01",
-    name: "Retail Demand Forecasting",
-    subtitle: "& price optimization",
-    categories: ["Forecasting", "Optimization"],
-    slug: "retail-forecasting / multi-store chain",
+    name: "medrag-toolkit",
+    subtitle: "modular RAG for medical QA",
+    categories: ["RAG", "LLM Infrastructure"],
+    slug: "medrag-toolkit / pubmed, rxnorm, openfda",
     blurb:
-      "An end-to-end demand forecasting system across a multi-store retail chain, paired with a markdown optimization algorithm that was A/B tested before it touched a price tag. Forecasts drive the markdown; the markdown gets validated on its own terms.",
+      "A modular RAG framework for medical question answering with pre-built connectors to PubMed (36M+ abstracts), RxNorm, and OpenFDA. Every response enforces citation grounding and passes an automated hallucination-detection layer. Hybrid retrieval combines dense FAISS with sparse BM25 over Qdrant, and a streaming FastAPI layer supports local backends (Ollama, vLLM) as well as cloud LLMs.",
     results: [
-      { k: "Forecast accuracy", v: "93%" },
-      { k: "Stockout reduction", v: "35%" },
-      { k: "Profitability lift", v: "12%" },
+      { k: "Sources", v: "PubMed, RxNorm, OpenFDA" },
+      { k: "Retrieval", v: "Dense + sparse hybrid" },
+      { k: "Benchmarks", v: "MedQA, MedMCQA" },
     ],
-    stack: ["Python", "PySpark", "XGBoost", "A/B Testing"],
+    stack: ["LangChain", "LlamaIndex", "FAISS", "Qdrant", "vLLM", "Ollama", "FastAPI", "Docker"],
+    note: "Repo not yet public",
+  },
+  {
+    id: "clinrag",
+    index: "02",
+    name: "Clinical RAG Evaluation System",
+    subtitle: "retrieval over clinical guidelines",
+    categories: ["RAG", "Evaluation"],
+    slug: "clinical-rag / 5,000+ who and nimh guidelines",
+    blurb:
+      "A RAG pipeline over 5,000+ WHO and NIMH clinical guidelines using semantic chunking, deployed on AWS Lambda behind FastAPI. LangChain and Pinecone handle retrieval, prompt-injection guardrails sit on the input path, and evaluation logging runs through LangSmith. Benchmarked with RAGAS against GPT-4, then tested with 3 clinical reviewers.",
+    results: [
+      { k: "Response relevance", v: "91%" },
+      { k: "Hallucination reduction", v: "38%" },
+      { k: "Verification time", v: "45% faster" },
+    ],
+    stack: ["LangChain", "Pinecone", "GPT-4", "FastAPI", "AWS Lambda", "RAGAS", "LangSmith"],
+    note: "Repo not yet public",
+  },
+  {
+    id: "buildify",
+    index: "03",
+    name: "Buildify",
+    subtitle: "generative floor plan designer",
+    categories: ["Generative AI", "Deep Learning"],
+    slug: "buildify / room-constraint graph to layout",
+    blurb:
+      "A custom Mixture of Experts with a 3-layer GCN encoder and a transposed-convolution MaskDecoder. Each expert specializes in one room-type layout, and a learned gating network routes room-constraint graphs to the right expert at inference. Deployed as a HuggingFace Space with a FastAPI backend, with INT8 post-training quantization bringing inference inside a real-time budget.",
+    results: [
+      { k: "Inference latency", v: "52% lower" },
+      { k: "Serving", v: "Single GPU, real time" },
+      { k: "Routing", v: "Learned gating network" },
+    ],
+    stack: ["PyTorch", "Mixture of Experts", "GCN", "HouseGAN++", "FastAPI", "HuggingFace Spaces"],
+    note: "Repo not yet public",
+  },
+  {
+    id: "mhaps",
+    index: "04",
+    name: "Mental Health AI Prediction System",
+    subtitle: "multi-modal NLP and ML",
+    categories: ["NLP", "Healthcare"],
+    slug: "mh-predict / 10k+ clinical screening records",
+    blurb:
+      "A multi-modal NLP and ML pipeline predicting across 3 diagnostic categories, trained on 10K+ clinical screening records with TF-IDF feature extraction and ensemble classification. Paired with an emotionally-aware chatbot built on TensorFlow and sequence-to-sequence modeling, informed by clinical ground truth from GWU's mental health research program.",
+    results: [
+      { k: "Accuracy", v: "94%" },
+      { k: "Diagnostic categories", v: "3" },
+      { k: "Training records", v: "10K+" },
+    ],
+    stack: ["Python", "TensorFlow", "NLP", "scikit-learn", "Flask"],
+    note: "Repo not yet public",
   },
   {
     id: "netflix",
-    index: "02",
+    index: "05",
     name: "Content Recommendation",
     subtitle: "& churn prediction",
     categories: ["Deep Learning", "Recommenders"],
     slug: "streaming-rec / 10M+ viewer records",
     blurb:
-      "A graph neural network and collaborative filtering engine over 10M+ viewer records, boosting engagement 35% — and an XGBoost + LSTM/ANN churn model sitting next to it, so retention strategy and recommendation share the same view of a subscriber.",
+      "A graph neural network and collaborative filtering recommendation engine over 10M+ viewer records, with an XGBoost and LSTM/ANN churn model built on the same subscriber features. GNN embeddings over the viewer-title interaction graph feed the recommender, so retention strategy and recommendation stay consistent.",
     results: [
       { k: "Engagement lift", v: "35%" },
       { k: "Churn accuracy", v: "92%" },
       { k: "Churn reduction", v: "20%" },
     ],
-    stack: ["GNN", "Collaborative Filtering", "XGBoost", "LSTM", "ANN"],
+    stack: ["Python", "PyTorch", "GNN", "XGBoost", "LSTM"],
+    href: "https://github.com/nik-hill-323/Netflix-Recommendation-Churn",
+  },
+]
+
+/** Public repositories, described as the repos describe themselves. */
+export const moreRepos = [
+  {
+    name: "sepsis-prediction",
+    blurb: "Early sepsis prediction in ICU patients using a bidirectional LSTM, flagging at-risk patients ahead of clinical diagnosis.",
+    href: "https://github.com/nik-hill-323/sepsis-prediction",
   },
   {
-    id: "traffic",
-    index: "03",
-    name: "Traffic Accident Prediction",
-    subtitle: "real-time, city-scale",
-    categories: ["Forecasting", "Deep Learning", "Geospatial"],
-    slug: "traffic-risk / hourly city grid",
-    blurb:
-      "LSTM and Prophet time-series models predicting congestion and accident frequency across city regions, with geospatial analysis on GIS, Folium, and Plotly surfacing the high-risk hotspots from live public datasets.",
-    results: [
-      { k: "Horizon", v: "Hourly" },
-      { k: "Models", v: "LSTM + Prophet" },
-      { k: "Output", v: "Hotspot map" },
-    ],
-    stack: ["LSTM", "Prophet", "GIS", "Folium", "Plotly"],
+    name: "Traffic-Accident-Prediction",
+    blurb: "LSTM and Prophet time-series models with geospatial analysis to find high-risk hotspots across city regions.",
+    href: "https://github.com/nik-hill-323/Traffic-Accident-Prediction",
+  },
+  {
+    name: "Retail-Demand-Forecasting",
+    blurb: "Demand forecasting with XGBoost and PySpark, plus a markdown optimization step.",
+    href: "https://github.com/nik-hill-323/Retail-Demand-Forecasting",
+  },
+  {
+    name: "Telecom-Churn-Analysis",
+    blurb: "Churn modeling and customer segmentation with logistic regression, random forest, and K-means.",
+    href: "https://github.com/nik-hill-323/Telecom-Churn-Analysis",
   },
 ]
 
 export const skills = [
   {
-    title: "Languages & ML",
-    blurb: "The core toolkit — what I reach for first when a problem has a modeling shape.",
+    title: "AI / Machine Learning",
+    blurb: "Model building, from classical ML through deep learning and computer vision.",
     items: [
       "Python",
-      "R",
-      "SQL",
-      "scikit-learn",
       "PyTorch",
       "TensorFlow",
+      "scikit-learn",
       "XGBoost",
       "LightGBM",
-      "ARIMA",
-      "LSTM",
-      "Random Forest",
+      "BERT",
+      "spaCy",
+      "Hugging Face",
       "GNN",
+      "LSTM",
       "YOLOv5",
       "Faster R-CNN",
-      "Autoencoders",
-      "Isolation Forest",
     ],
   },
   {
-    title: "Data & Visualization",
-    blurb: "Getting from raw rows to something a stakeholder can act on without a translator.",
-    items: ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Apache Spark (PySpark)", "Power BI", "Tableau", "Excel"],
-  },
-  {
-    title: "NLP, CV & Methods",
-    blurb: "Text, imagery, and the statistical methods that keep results honest.",
+    title: "Generative AI",
+    blurb: "LLM application work: agents, retrieval, and the prompting layer around them.",
     items: [
-      "NLP",
-      "Computer Vision",
-      "Sentiment Analysis",
-      "Topic Modeling",
-      "Statistical Modeling",
-      "Time Series Forecasting",
-      "Geospatial Analysis",
+      "OpenAI API",
+      "Anthropic (Claude) API",
+      "LangChain",
+      "LangGraph",
+      "RAG",
+      "Embeddings",
+      "Vector Search",
+      "Prompt Engineering",
+      "Multi-Agent Systems",
     ],
   },
   {
-    title: "Cloud & Engineering",
-    blurb: "Pipelines and infrastructure so models run on a schedule, not on my laptop.",
+    title: "RAG Infrastructure & Evaluation",
+    blurb: "Vector stores, serving, and the tooling that shows whether a system actually works.",
+    items: ["FAISS", "Pinecone", "Qdrant", "pgvector", "vLLM", "Ollama", "RAGAS", "DeepEval", "LangSmith", "MLflow"],
+  },
+  {
+    title: "Data Engineering",
+    blurb: "Pipelines and storage, so models run on a schedule instead of on my laptop.",
     items: [
-      "ETL Pipelines",
+      "SQL",
+      "PostgreSQL",
+      "MongoDB",
       "Apache Airflow",
       "BigQuery",
-      "AWS (EC2, Lambda, S3)",
-      "Salesforce CRM",
-      "Salesforce Flow",
-      "MongoDB",
-      "Docker",
-      "Git",
+      "PySpark",
+      "Pandas",
+      "ETL Pipelines",
       "REST APIs",
-      "GIS",
-      "LiDAR",
+    ],
+  },
+  {
+    title: "Cloud / Engineering",
+    blurb: "Deployment, containers, and CI.",
+    items: ["AWS (Lambda, EC2, S3, SageMaker)", "GCP", "Docker", "FastAPI", "GitHub Actions", "Git", "CI/CD"],
+  },
+  {
+    title: "Analytics / Visualization",
+    blurb: "Statistical methods and the reporting layer stakeholders actually read.",
+    items: [
+      "Statistical Modeling",
+      "Time Series Forecasting",
+      "Anomaly Detection",
+      "SHAP Explainability",
+      "A/B Testing",
+      "Causal Inference",
+      "Tableau",
+      "Power BI",
+      "Matplotlib",
+      "Plotly",
     ],
   },
 ]
@@ -261,24 +338,26 @@ export const skills = [
 export const education = [
   {
     degree: "M.S. Data Science",
-    school: "The George Washington University",
-    period: "Jan 2025 — Present",
-    detail: "GPA 3.75 · CCAS Global Leaders Fellowship ($17,100, 2025) · Washington, D.C.",
+    school: "George Washington University",
+    period: "Jan 2025 to Dec 2026",
+    detail: "GPA 3.75. Global Leaders (CCAS) Fellowship, $17,100 (2025). Washington, DC.",
     coursework: [
       "Machine Learning",
-      "Data Visualization",
+      "Deep Learning",
+      "Natural Language Processing",
+      "Statistical Modeling",
       "Data Mining",
+      "Data Visualization",
       "Database Management",
       "GIS",
-      "Natural Language Processing",
     ],
   },
 ]
 
 export const sections = [
   { id: "about", n: "01", label: "About" },
-  { id: "experience", n: "02", label: "Experience" },
-  { id: "projects", n: "03", label: "Projects" },
+  { id: "projects", n: "02", label: "Projects" },
+  { id: "experience", n: "03", label: "Experience" },
   { id: "skills", n: "04", label: "Skills" },
   { id: "education", n: "05", label: "Education" },
   { id: "contact", n: "06", label: "Contact" },

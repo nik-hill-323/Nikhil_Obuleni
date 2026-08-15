@@ -19,8 +19,8 @@ export function Skills() {
       id="skills"
       n="04"
       label="Skills"
-      title="What I reach for."
-      lede="The stack behind the work above — grouped by the job it does, not by how impressive it looks in a list."
+      title="Skills"
+      lede="Grouped by what each tool is for. Everything listed here shows up in the work above."
     >
       <Reveal>
         <div className="flex flex-wrap items-center gap-3">
@@ -28,7 +28,7 @@ export function Skills() {
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Filter — try “LSTM” or “AWS”"
+              placeholder="Filter skills, e.g. RAG or FAISS"
               aria-label="Filter skills"
               className="w-full rounded-full border border-line bg-surface py-2.5 pl-10 pr-4 text-sm text-ink outline-none transition placeholder:text-muted focus:border-accent"
             />

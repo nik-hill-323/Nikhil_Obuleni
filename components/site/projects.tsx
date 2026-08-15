@@ -1,12 +1,12 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { profile, projects } from "@/lib/content"
+import { moreRepos, profile, projects } from "@/lib/content"
 import { VISUALS } from "./project-visuals"
 import { Reveal } from "./reveal"
 import { Section } from "./section"
 
-const ORDER = ["Forecasting", "Deep Learning", "Recommenders", "Optimization", "Geospatial"]
+const ORDER = ["RAG", "Generative AI", "Deep Learning", "Evaluation", "NLP"]
 
 export function Projects() {
   const [filter, setFilter] = useState("All")
@@ -23,10 +23,10 @@ export function Projects() {
   return (
     <Section
       id="projects"
-      n="03"
+      n="02"
       label="Projects"
-      title="Things I've actually built."
-      lede="Forecasting, recommenders, and geospatial risk — each one is live below, not a screenshot. Drag the sliders, hover the graph: the numbers move the way the models do."
+      title="Selected projects"
+      lede="RAG infrastructure, LLM evaluation, generative models, and applied ML. Each card shows the architecture and the measured result."
       tint
     >
       <Reveal>
@@ -106,6 +106,25 @@ export function Projects() {
                         </span>
                       ))}
                     </div>
+
+                    <div className="mt-5">
+                      {p.href ? (
+                        <a
+                          href={p.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 font-mono text-[12px] text-accent transition hover:opacity-80"
+                        >
+                          View on GitHub
+                          <span aria-hidden>↗</span>
+                        </a>
+                      ) : (
+                        <span className="inline-flex items-center gap-2 font-mono text-[12px] text-muted">
+                          <span className="h-1 w-1 rounded-full bg-line-strong" aria-hidden />
+                          {p.note}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </article>
@@ -113,6 +132,38 @@ export function Projects() {
           )
         })}
       </div>
+
+      <Reveal delay={100}>
+        <div className="mt-12">
+          <div className="flex items-center gap-2.5">
+            <span className="eyebrow">Also on GitHub</span>
+            <span className="h-px flex-1 bg-line" aria-hidden />
+          </div>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {moreRepos.map((r) => (
+              <li key={r.name}>
+                <a
+                  href={r.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="card card-hover group flex h-full flex-col p-5"
+                >
+                  <span className="flex items-center justify-between gap-3 font-mono text-[12.5px] text-ink">
+                    {r.name}
+                    <span
+                      className="text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent"
+                      aria-hidden
+                    >
+                      ↗
+                    </span>
+                  </span>
+                  <span className="mt-2 text-[13px] leading-relaxed text-muted">{r.blurb}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Reveal>
 
       <Reveal delay={120}>
         <p className="mt-8 text-center text-sm text-muted">

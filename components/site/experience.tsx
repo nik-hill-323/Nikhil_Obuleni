@@ -14,10 +14,10 @@ export function Experience() {
   return (
     <Section
       id="experience"
-      n="02"
+      n="03"
       label="Experience"
-      title="Where the work happened."
-      lede="Research, humanitarian consulting, aerospace, and NLP — four roles, one habit: build the pipeline before you brag about the model."
+      title="Experience"
+      lede="LLM systems for global mental health research, ML and data engineering for humanitarian reporting, and computer vision for drone platforms."
     >
       {/* timeline rail */}
       <Reveal>

@@ -8,8 +8,8 @@ export function Education() {
       id="education"
       n="05"
       label="Education"
-      title="The formal half."
-      lede="Coursework that backs up the applied work — and the fellowship that funded it."
+      title="Education"
+      lede="Coursework behind the applied work, and the fellowship that funded it."
       tint
     >
       <div className="grid gap-4">

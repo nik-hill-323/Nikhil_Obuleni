@@ -31,17 +31,17 @@ function TiltPhoto() {
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={reset}
-      className="relative overflow-hidden rounded-[22px] border border-line bg-surface p-1.5 shadow-[var(--shadow-lg)] transition-transform duration-300 ease-out"
+      className="relative mx-auto max-w-[380px] rounded-full border border-line bg-surface p-2 shadow-[var(--shadow-lg)] transition-transform duration-300 ease-out"
     >
       <img
         src={asset("/nikhil-profile.jpg")}
         alt={profile.name}
         width={520}
         height={640}
-        className="h-[300px] w-full rounded-[16px] object-cover object-center sm:h-[380px]"
+        className="mx-auto aspect-square w-full max-w-[340px] rounded-full object-cover object-top"
       />
-      <div className="pointer-events-none absolute inset-1.5 rounded-[16px] ring-1 ring-inset ring-black/5" aria-hidden />
-      <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full border border-line bg-surface/90 px-3 py-1.5 text-[11px] font-medium text-ink-2 backdrop-blur">
+      <div className="pointer-events-none absolute inset-2 rounded-full ring-1 ring-inset ring-black/5" aria-hidden />
+      <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 whitespace-nowrap items-center gap-2 rounded-full border border-line bg-surface/90 px-3 py-1.5 text-[11px] font-medium text-ink-2 backdrop-blur">
         <span className="relative flex h-1.5 w-1.5">
           <span className="absolute inline-flex h-full w-full rounded-full bg-good pulse-dot" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-good" />
@@ -68,7 +68,22 @@ export function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
           <div>
             <Rise>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full border border-line-strong bg-surface px-4 py-2 text-[13px] font-semibold tracking-tight text-ink">
+                  {profile.badge}
+                </span>
+                <span className="pill">
+                  <span className="relative flex h-1.5 w-1.5" aria-hidden>
+                    <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-good" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-good" />
+                  </span>
+                  {profile.status}
+                </span>
+              </div>
+            </Rise>
+
+            <Rise delay={40}>
+              <div className="mt-3 flex flex-wrap gap-2">
                 {profile.tags.map((t) => (
                   <span key={t} className="pill">
                     {t}
@@ -97,7 +112,7 @@ export function Hero() {
                   href="#projects"
                   className="rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-90"
                 >
-                  See the work
+                  View My Work
                 </a>
                 <a
                   href={profile.github}
@@ -121,7 +136,7 @@ export function Hero() {
                   rel="noreferrer"
                   className="rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-ink-2 transition hover:border-line-strong hover:text-ink"
                 >
-                  Résumé ↓
+                  Download Resume
                 </a>
               </div>
             </Rise>

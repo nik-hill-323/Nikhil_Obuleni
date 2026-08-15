@@ -95,7 +95,7 @@ export function Header() {
         }`}
       >
         <div className="shell flex h-16 items-center justify-between gap-4">
-          <a href="#top" className="group flex items-center gap-2.5" aria-label={`${profile.name} — back to top`}>
+          <a href="#top" className="group flex items-center gap-2.5" aria-label={`${profile.name}, back to top`}>
             <span className="grid h-8 w-8 place-items-center rounded-[10px] bg-accent text-[11px] font-semibold tracking-wide text-white shadow-sm transition group-hover:scale-105">
               {profile.monogram}
             </span>

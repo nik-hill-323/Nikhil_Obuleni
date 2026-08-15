@@ -22,7 +22,8 @@ export function Contact() {
   const links = [
     { label: "GitHub", href: profile.github, sub: "nik-hill-323" },
     { label: "LinkedIn", href: profile.linkedin, sub: "nikhil-obuleni" },
-    { label: "Résumé", href: asset(profile.resume), sub: "PDF · one page" },
+    { label: "Resume, AI Engineer", href: asset(profile.resume), sub: "PDF" },
+    { label: "Resume, Data Scientist", href: asset(profile.resumeDs), sub: "PDF" },
   ]
 
   return (
@@ -30,8 +31,8 @@ export function Contact() {
       id="contact"
       n="06"
       label="Contact"
-      title="Let's talk."
-      lede="Open to data science and ML roles across the DMV or remote — and always happy to talk shop about forecasting, evaluation, or pipelines that refuse to break."
+      title="Let's build something useful."
+      lede="I am open to AI and ML engineering roles, and happy to talk about retrieval, LLM evaluation, or anything that has to run reliably against real-world data."
     >
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
         <Reveal>
