@@ -1,9 +1,8 @@
 /**
  * Single source of truth for every word on the site.
  *
- * Content comes from Nikhil_Obuleni_AI_Engineer.pdf and
- * Nikhil_Obuleni_Data_Scientist.pdf. If a number is not in one of those two
- * resumes, it does not appear on the page.
+ * Content comes from Nikhil_Obuleni_AI_Engineer.pdf. If a number is not on
+ * that resume, it does not appear on the page.
  */
 
 export const profile = {
@@ -17,7 +16,6 @@ export const profile = {
   github: "https://github.com/nik-hill-323",
   linkedin: "https://www.linkedin.com/in/nikhil-obuleni",
   resume: "/Nikhil_Obuleni_AI_Engineer.pdf",
-  resumeDs: "/Nikhil_Obuleni_Data_Scientist.pdf",
   status: "Currently building AI & research systems at CGMHE",
   tags: ["AI Research Engineer", "LLMs / RAG", "M.S. Data Science / GW", "Washington, DC"],
   headline: {

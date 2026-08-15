@@ -22,8 +22,7 @@ export function Contact() {
   const links = [
     { label: "GitHub", href: profile.github, sub: "nik-hill-323" },
     { label: "LinkedIn", href: profile.linkedin, sub: "nikhil-obuleni" },
-    { label: "Resume, AI Engineer", href: asset(profile.resume), sub: "PDF" },
-    { label: "Resume, Data Scientist", href: asset(profile.resumeDs), sub: "PDF" },
+    { label: "Resume", href: asset(profile.resume), sub: "PDF, one page" },
   ]
 
   return (
