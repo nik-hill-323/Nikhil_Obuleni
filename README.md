@@ -1,122 +1,58 @@
-# Nikhil Obuleni - Data Science Portfolio
+# Nikhil Obuleni — Portfolio
 
-A modern, interactive portfolio website showcasing data science projects, skills, and professional experience.
+Personal site for Nikhil Obuleni, M.S. Data Science candidate at the George Washington University.
+Live at **https://nik-hill-323.github.io/Nikhil_Obuleni/**
 
-## ✨ Features
+## Stack
 
-- **Modern Design**: Sleek UI with galaxy background and 3D elements
-- **Dark/Light Mode**: Seamless theme switching
-- **Interactive Contact Form**: Email integration with Resend
-- **Responsive**: Works beautifully on all devices
-- **Smooth Animations**: Intersection Observer-based reveals
-- **Performance Optimized**: Built with Next.js 15
+- Next.js 15 (App Router, `output: 'export'` → static HTML)
+- Tailwind CSS v4
+- No runtime dependencies beyond React — every visualization is hand-written SVG
 
-## 🚀 Quick Start
+## Structure
 
-### 1. Install Dependencies
-
-```bash
-# Fix npm permissions first (if needed)
-sudo chown -R 501:20 "/Users/nik_hill_126/.npm"
-
-# Install dependencies
-npm install --legacy-peer-deps
+```
+app/
+  layout.tsx      fonts, metadata, pre-paint theme script
+  page.tsx        section order
+  globals.css     design tokens (light + dark), motion primitives
+components/site/
+  header.tsx           sticky nav, scroll progress, active section, theme toggle
+  hero.tsx             headline, tilt photo, animated impact counters
+  about.tsx
+  experience.tsx       clickable role timeline
+  projects.tsx         category filter + project cards
+  project-visuals.tsx  the three interactive visualizations
+  skills.tsx           live skill filter
+  education.tsx
+  contact.tsx
+  reveal.tsx / rise.tsx / count-up.tsx / section.tsx
+lib/
+  content.ts      ALL site copy lives here — edit this, not the components
+  base-path.ts    GitHub Pages sub-path prefix for static assets
 ```
 
-### 2. Set Up Email (Optional)
+### Editing content
 
-Create a `.env.local` file:
+Everything on the page — headline, roles, bullet points, project copy, metrics,
+skills, links — comes from `lib/content.ts`. Changing text never requires
+touching a component.
 
-```env
-RESEND_API_KEY=your_resend_api_key_here
-```
+The project visualizations are driven by data at the top of
+`components/site/project-visuals.tsx`: `WEEKS_ACTUAL` / `BASE_FORECAST` for the
+retail chart, `NODES` / `EDGES` for the recommendation graph, and the `risk()`
+hotspot centres for the traffic grid.
 
-Get your free API key at [resend.com](https://resend.com)
-
-### 3. Run Development Server
+## Develop
 
 ```bash
+npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+## Deploy
 
-## 📚 Full Setup Guide
-
-See [SETUP.md](./SETUP.md) for detailed instructions on:
-- Email service configuration
-- Customization options
-- Deployment guide
-- Troubleshooting
-
-## 🛠️ Tech Stack
-
-- **Next.js 15** - React framework
-- **React 19** - UI library
-- **TypeScript** - Type safety
-- **Tailwind CSS 4** - Styling
-- **Radix UI** - Accessible components
-- **Three.js** - 3D graphics
-- **Resend** - Email service
-- **Sonner** - Toast notifications
-
-## 📁 Project Structure
-
-```
-nikhil-portfolio/
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   │   └── contact/       # Contact form endpoint
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
-├── components/            # React components
-│   ├── ui/               # UI components
-│   ├── hero.tsx          # Hero section
-│   ├── about.tsx         # About section
-│   ├── experience.tsx    # Experience section
-│   ├── projects.tsx      # Projects section
-│   ├── skills.tsx        # Skills section
-│   └── contact.tsx       # Contact section
-├── lib/                  # Utilities
-├── public/              # Static assets
-└── .env.example         # Environment template
-```
-
-## 📧 Contact Form
-
-The contact form includes:
-
-✅ Real-time validation
-✅ Professional email templates
-✅ Error handling
-✅ Loading states
-✅ Success/error notifications
-
-Messages are sent to: `nikhil.obuleni@gwu.edu`
-
-## 🎨 Customization
-
-1. **Personal Info**: Edit `components/contact.tsx`
-2. **Projects**: Update `components/projects.tsx`
-3. **Experience**: Modify `components/experience.tsx`
-4. **Skills**: Change `components/skills.tsx`
-5. **Colors**: Adjust `app/globals.css`
-
-## 🚢 Deployment
-
-### Deploy to Vercel (Recommended)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-1. Push code to GitHub
-2. Import to Vercel
-3. Add `RESEND_API_KEY` environment variable
-4. Deploy!
-
-## 📝 License
-
-© 2025 Nikhil Obuleni. All rights reserved.
-
-## 🙏 Acknowledgments
-
-Built with modern web technologies and design best practices.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs
+`next build` and publishes `out/` to GitHub Pages. `next.config.mjs` sets
+`basePath: '/Nikhil_Obuleni'` in production; static assets referenced outside
+`next/link` go through `asset()` in `lib/base-path.ts`.

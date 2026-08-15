@@ -1,36 +1,27 @@
-import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { Experience } from "@/components/experience"
-import { Projects } from "@/components/projects"
-import { Skills } from "@/components/skills"
-import { Contact } from "@/components/contact"
-import { Navigation } from "@/components/navigation"
-import { ScrollReveal } from "@/components/scroll-reveal"
-import { GalaxyBackground } from "@/components/galaxy-background"
+import { About } from "@/components/site/about"
+import { Contact } from "@/components/site/contact"
+import { Education } from "@/components/site/education"
+import { Experience } from "@/components/site/experience"
+import { Footer } from "@/components/site/footer"
+import { Header } from "@/components/site/header"
+import { Hero } from "@/components/site/hero"
+import { Projects } from "@/components/site/projects"
+import { Skills } from "@/components/site/skills"
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      <GalaxyBackground />
-      <Navigation />
+    <>
+      <Header />
       <main>
         <Hero />
-        <ScrollReveal>
-          <About />
-        </ScrollReveal>
-        <ScrollReveal delay={100}>
-          <Experience />
-        </ScrollReveal>
-        <ScrollReveal delay={200}>
-          <Projects />
-        </ScrollReveal>
-        <ScrollReveal delay={100}>
-          <Skills />
-        </ScrollReveal>
-        <ScrollReveal delay={200}>
-          <Contact />
-        </ScrollReveal>
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Education />
+        <Contact />
       </main>
-    </div>
+      <Footer />
+    </>
   )
 }

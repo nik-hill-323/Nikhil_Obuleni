@@ -1,11 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import { Suspense } from "react"
+import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "sonner"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,34 +9,48 @@ const inter = Inter({
   display: "swap",
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const display = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+})
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono-code",
   display: "swap",
 })
 
 export const metadata: Metadata = {
   title: "Nikhil Obuleni | Data Scientist",
   description:
-    "Portfolio of Nikhil Obuleni — MS Data Science candidate at George Washington University with 3+ years building ML models, deep learning systems, and ETL pipelines across humanitarian, aerospace, and NLP domains.",
-  generator: "v0.app",
+    "Portfolio of Nikhil Obuleni — M.S. Data Science candidate at the George Washington University, building ML models, deep learning systems, and ETL pipelines across humanitarian, aerospace, and NLP domains.",
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+// Applied before paint so a dark-mode visitor never sees a white flash.
+const themeScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (dark) document.documentElement.classList.add('dark');
+  } catch (e) {}
+})();
+`
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
-        <Suspense fallback={null}>
-          <ThemeProvider defaultTheme="dark">
-            {children}
-            <Toaster position="top-right" richColors closeButton />
-          </ThemeProvider>
-          <Analytics />
-        </Suspense>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body
+        className={`${inter.variable} ${display.variable} ${mono.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
+        {children}
       </body>
     </html>
   )
