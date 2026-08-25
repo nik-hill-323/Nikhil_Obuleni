@@ -193,7 +193,7 @@ export const projects: Project[] = [
       { k: "Routing", v: "Learned gating network" },
     ],
     stack: ["PyTorch", "Mixture of Experts", "GCN", "HouseGAN++", "FastAPI", "HuggingFace Spaces"],
-    note: "Repo not yet public",
+    href: "https://github.com/nik-hill-323/planmoe",
   },
   {
     id: "mhaps",
