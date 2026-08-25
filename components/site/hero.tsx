@@ -33,13 +33,18 @@ function TiltPhoto() {
       onMouseLeave={reset}
       className="relative mx-auto max-w-[380px] rounded-full border border-line bg-surface p-2 shadow-[var(--shadow-lg)] transition-transform duration-300 ease-out"
     >
-      <img
-        src={asset("/nikhil-profile.jpg")}
-        alt={profile.name}
-        width={520}
-        height={640}
-        className="mx-auto aspect-square w-full max-w-[340px] rounded-full object-cover object-top"
-      />
+      <picture>
+        <source srcSet={asset("/nikhil-profile.webp")} type="image/webp" />
+        <img
+          src={asset("/nikhil-profile.jpg")}
+          alt={`${profile.name}, ${profile.role}`}
+          width={900}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
+          className="mx-auto aspect-square w-full max-w-[340px] rounded-full object-cover object-center"
+        />
+      </picture>
       <div className="pointer-events-none absolute inset-2 rounded-full ring-1 ring-inset ring-black/5" aria-hidden />
       <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 whitespace-nowrap items-center gap-2 rounded-full border border-line bg-surface/90 px-3 py-1.5 text-[11px] font-medium text-ink-2 backdrop-blur">
         <span className="relative flex h-1.5 w-1.5">
