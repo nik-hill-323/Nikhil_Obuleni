@@ -130,7 +130,7 @@ export const jobs: Job[] = [
 ]
 
 export type Project = {
-  id: "medrag" | "clinrag" | "buildify" | "mhaps" | "netflix"
+  id: "medrag" | "clinrag" | "planmoe" | "mhaps" | "netflix"
   index: string
   name: string
   subtitle: string
@@ -179,12 +179,12 @@ export const projects: Project[] = [
     note: "Repo not yet public",
   },
   {
-    id: "buildify",
+    id: "planmoe",
     index: "03",
-    name: "Buildify",
+    name: "PlanMoE",
     subtitle: "generative floor plan designer",
     categories: ["Generative AI", "Deep Learning"],
-    slug: "buildify / room-constraint graph to layout",
+    slug: "planmoe / room-constraint graph to layout",
     blurb:
       "A custom Mixture of Experts with a 3-layer GCN encoder and a transposed-convolution MaskDecoder. Each expert specializes in one room-type layout, and a learned gating network routes room-constraint graphs to the right expert at inference. Deployed as a HuggingFace Space with a FastAPI backend, with INT8 post-training quantization bringing inference inside a real-time budget.",
     results: [

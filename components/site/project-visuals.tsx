@@ -283,7 +283,7 @@ export function ClinragViz() {
 }
 
 /* ------------------------------------------------------------------ *
- * 03 — Buildify: the gating network routing a constraint graph to one
+ * 03 - PlanMoE: the gating network routing a constraint graph to one
  * room-type expert. Auto-cycles; hover an expert to hold it.
  * ------------------------------------------------------------------ */
 
@@ -294,7 +294,7 @@ const EXPERTS = [
   { id: "living", cells: [5, 7, 8] },
 ]
 
-export function BuildifyViz() {
+export function PlanmoeViz() {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 })
   const [hover, setHover] = useState<string | null>(null)
   const [cycle, setCycle] = useState(0)
@@ -313,7 +313,7 @@ export function BuildifyViz() {
 
   return (
     <div ref={ref}>
-      <VizFrame slug="buildify / room-constraint graph → MoE" caption="Gating network · expert routing">
+      <VizFrame slug="planmoe / room-constraint graph → MoE" caption="Gating network · expert routing">
         <div className="grid grid-cols-[1fr_auto] items-center gap-4">
           <div>
             <svg viewBox="0 0 190 96" className="w-full" role="img" aria-label="Constraint graph routed to a room-type expert">
@@ -691,7 +691,7 @@ export function NetflixViz() {
 export const VISUALS = {
   medrag: MedragViz,
   clinrag: ClinragViz,
-  buildify: BuildifyViz,
+  planmoe: PlanmoeViz,
   mhaps: MhapsViz,
   netflix: NetflixViz,
 } as const
