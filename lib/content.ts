@@ -159,7 +159,7 @@ export const projects: Project[] = [
       { k: "Benchmarks", v: "MedQA, MedMCQA" },
     ],
     stack: ["LangChain", "LlamaIndex", "FAISS", "Qdrant", "vLLM", "Ollama", "FastAPI", "Docker"],
-    note: "Repo not yet public",
+    href: "https://github.com/nik-hill-323/medrag-toolkit",
   },
   {
     id: "clinrag",
