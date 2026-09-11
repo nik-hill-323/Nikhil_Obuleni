@@ -82,7 +82,7 @@ export type Job = {
 export const jobs: Job[] = [
   {
     kind: "Current",
-    period: "May 2026 to Present",
+    period: "Mar 2026 to Present",
     title: "AI Research Engineer",
     org: "Center for Global Mental Health Equity (CGMHE)",
     place: "Washington, DC",
