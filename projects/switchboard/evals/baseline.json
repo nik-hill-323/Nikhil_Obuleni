@@ -1,0 +1,256 @@
+{
+ "config": {
+  "fleet": "configs/fleet.sim.json",
+  "n_train": 800,
+  "n_test": 800,
+  "lam": 0.1,
+  "seed": 0
+ },
+ "policies": {
+  "switchboard": {
+   "n": 800,
+   "quality": 0.94,
+   "hallucination_rate": 0.0667,
+   "cost_per_1k": 0.5617,
+   "p50_ms": 498,
+   "p95_ms": 2227,
+   "by_category": {
+    "format": 1.0,
+    "classify": 0.962,
+    "extract": 0.956,
+    "math": 0.895,
+    "reasoning": 0.936,
+    "code": 0.918,
+    "rag_qa": 0.867
+   },
+   "share": {
+    "frontier": 0.256,
+    "coder": 0.242,
+    "pro": 0.236,
+    "mini": 0.18,
+    "nano": 0.085
+   }
+  },
+  "keyword-rules": {
+   "n": 800,
+   "quality": 0.8413,
+   "hallucination_rate": 0.0556,
+   "cost_per_1k": 0.4548,
+   "p50_ms": 380,
+   "p95_ms": 1784,
+   "by_category": {
+    "format": 1.0,
+    "classify": 0.929,
+    "extract": 0.985,
+    "math": 0.326,
+    "reasoning": 0.641,
+    "code": 0.918,
+    "rag_qa": 0.867
+   },
+   "share": {
+    "mini": 0.545,
+    "frontier": 0.3,
+    "coder": 0.155
+   }
+  },
+  "random": {
+   "n": 800,
+   "quality": 0.71,
+   "hallucination_rate": 0.4778,
+   "cost_per_1k": 0.2785,
+   "p50_ms": 424,
+   "p95_ms": 1472,
+   "by_category": {
+    "format": 1.0,
+    "classify": 0.907,
+    "extract": 0.831,
+    "math": 0.589,
+    "reasoning": 0.218,
+    "code": 0.684,
+    "rag_qa": 0.322
+   },
+   "share": {
+    "nano": 0.229,
+    "pro": 0.203,
+    "coder": 0.2,
+    "frontier": 0.185,
+    "mini": 0.184
+   }
+  },
+  "cascade": {
+   "n": 800,
+   "quality": 0.6388,
+   "hallucination_rate": 0.4444,
+   "cost_per_1k": 0.2521,
+   "p50_ms": 458,
+   "p95_ms": 3415,
+   "by_category": {
+    "format": 1.0,
+    "classify": 0.989,
+    "extract": 0.919,
+    "math": 0.274,
+    "reasoning": 0.192,
+    "code": 0.122,
+    "rag_qa": 0.356
+   },
+   "share": {
+    "nano": 0.661,
+    "nano>mini": 0.229,
+    "nano>mini>pro": 0.07,
+    "nano>mini>pro>frontier": 0.04
+   }
+  },
+  "oracle": {
+   "n": 800,
+   "quality": 0.9912,
+   "hallucination_rate": 0.0111,
+   "cost_per_1k": 0.2841,
+   "p50_ms": 225,
+   "p95_ms": 1664,
+   "by_category": {
+    "format": 1.0,
+    "classify": 1.0,
+    "extract": 1.0,
+    "math": 1.0,
+    "reasoning": 0.962,
+    "code": 1.0,
+    "rag_qa": 0.956
+   },
+   "share": {
+    "nano": 0.444,
+    "mini": 0.226,
+    "coder": 0.138,
+    "pro": 0.109,
+    "frontier": 0.084
+   }
+  },
+  "always-nano": {
+   "n": 800,
+   "quality": 0.4437,
+   "hallucination_rate": 0.6889,
+   "cost_per_1k": 0.0133,
+   "p50_ms": 160,
+   "p95_ms": 441,
+   "by_category": {
+    "format": 0.992,
+    "classify": 0.78,
+    "extract": 0.485,
+    "math": 0.095,
+    "reasoning": 0.0,
+    "code": 0.122,
+    "rag_qa": 0.067
+   },
+   "share": {
+    "nano": 1.0
+   }
+  },
+  "always-mini": {
+   "n": 800,
+   "quality": 0.6412,
+   "hallucination_rate": 0.4333,
+   "cost_per_1k": 0.0548,
+   "p50_ms": 263,
+   "p95_ms": 721,
+   "by_category": {
+    "format": 1.0,
+    "classify": 0.929,
+    "extract": 0.949,
+    "math": 0.326,
+    "reasoning": 0.013,
+    "code": 0.378,
+    "rag_qa": 0.278
+   },
+   "share": {
+    "mini": 1.0
+   }
+  },
+  "always-coder": {
+   "n": 800,
+   "quality": 0.705,
+   "hallucination_rate": 0.6111,
+   "cost_per_1k": 0.0827,
+   "p50_ms": 355,
+   "p95_ms": 893,
+   "by_category": {
+    "format": 0.992,
+    "classify": 0.83,
+    "extract": 0.853,
+    "math": 0.716,
+    "reasoning": 0.09,
+    "code": 0.918,
+    "rag_qa": 0.133
+   },
+   "share": {
+    "coder": 1.0
+   }
+  },
+  "always-pro": {
+   "n": 800,
+   "quality": 0.8762,
+   "hallucination_rate": 0.2,
+   "cost_per_1k": 0.3263,
+   "p50_ms": 606,
+   "p95_ms": 1493,
+   "by_category": {
+    "format": 1.0,
+    "classify": 0.978,
+    "extract": 1.0,
+    "math": 0.842,
+    "reasoning": 0.487,
+    "code": 0.867,
+    "rag_qa": 0.7
+   },
+   "share": {
+    "pro": 1.0
+   }
+  },
+  "always-frontier": {
+   "n": 800,
+   "quality": 0.9675,
+   "hallucination_rate": 0.0556,
+   "cost_per_1k": 1.1087,
+   "p50_ms": 1165,
+   "p95_ms": 2549,
+   "by_category": {
+    "format": 1.0,
+    "classify": 0.995,
+    "extract": 0.993,
+    "math": 0.958,
+    "reasoning": 0.936,
+    "code": 0.969,
+    "rag_qa": 0.867
+   },
+   "share": {
+    "frontier": 1.0
+   }
+  }
+ },
+ "pareto": [],
+ "models": [
+  {
+   "name": "nano",
+   "price_in": 0.1,
+   "price_out": 0.4
+  },
+  {
+   "name": "mini",
+   "price_in": 0.4,
+   "price_out": 1.6
+  },
+  {
+   "name": "coder",
+   "price_in": 0.6,
+   "price_out": 2.4
+  },
+  {
+   "name": "pro",
+   "price_in": 2.0,
+   "price_out": 10.0
+  },
+  {
+   "name": "frontier",
+   "price_in": 8.0,
+   "price_out": 32.0
+  }
+ ]
+}

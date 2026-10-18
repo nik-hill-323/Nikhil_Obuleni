@@ -1,0 +1,377 @@
+<title>Switchboard Eval Report</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 1040px reading column; findings first, then the evidence charts, then the raw tables. */
+:root {
+  --bg: #f5f6f8; --surface: #ffffff; --ink: #14171c; --muted: #5a6170; --faint: #8a90a0;
+  --rule: #dde1e7; --grid: #eceef2; --accent: #2a78d6;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4;
+  --neutral-mark: #8a90a0; --incident: #b4251c;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111317; --surface: #191c21; --ink: #eceef2; --muted: #a3a9b5; --faint: #7d8492;
+  --rule: #2c313a; --grid: #23272e; --accent: #3987e5;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+  --neutral-mark: #7d8492; --incident: #e66767; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #111317; --surface: #191c21; --ink: #eceef2; --muted: #a3a9b5; --faint: #7d8492;
+  --rule: #2c313a; --grid: #23272e; --accent: #3987e5;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+  --neutral-mark: #7d8492; --incident: #e66767; color-scheme: dark; }
+
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--body); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 56px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.08; font-weight: 750; }
+h2 { font-size: 24px; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+.eyebrow { font: 500 12px/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.muted { color: var(--muted); }
+code, .mono { font-family: var(--mono); font-size: 0.92em; }
+header { display: grid; gap: 16px; }
+.lede { font-size: 17px; color: var(--muted); }
+.sim-note { font-size: 13px; color: var(--muted); border-left: 2px solid var(--rule); padding-left: 12px; }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; display: grid; gap: 4px; align-content: start; }
+.tile .num { font: 600 32px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.tile .lbl { font-size: 13px; color: var(--muted); }
+
+section { display: grid; gap: 16px; }
+section > header { gap: 8px; }
+.fig { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 16px 10px; display: grid; gap: 10px; min-width: 0; position: relative; }
+.fig-title { font-weight: 600; font-size: 14px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 3px; border-radius: 2px; display: inline-block; }
+.sw.dot { width: 9px; height: 9px; border-radius: 50%; }
+.sw.ring { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--ink); background: transparent; }
+svg { width: 100%; height: auto; display: block; overflow: visible; }
+svg text { fill: var(--muted); font: 11px var(--mono); }
+svg .axis { stroke: var(--rule); }
+svg .gridline { stroke: var(--grid); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+  padding: 8px 10px; font: 12px/1.45 var(--mono); color: var(--ink); box-shadow: 0 4px 14px rgb(0 0 0 / 0.12); min-width: 150px; z-index: 2; }
+.tip b { font-weight: 500; }
+.tip .row { display: flex; justify-content: space-between; gap: 14px; }
+
+.tbl-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { padding: 9px 14px; text-align: right; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { font: 500 11.5px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+tr.hl td { font-weight: 600; }
+tr.ref td { color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+
+ol.events { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14px; }
+ol.events li { display: grid; grid-template-columns: 74px 1fr; gap: 12px; }
+ol.events .t { font-family: var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.pill { font: 500 11px var(--mono); padding: 2px 7px; border-radius: 99px; border: 1px solid currentColor; margin-right: 6px; white-space: nowrap; }
+.pill.inc { color: var(--incident); }
+.pill.alert { color: var(--accent); }
+footer { font-size: 13px; color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Switchboard · offline eval + incident replay</div>
+    <h1 id="headline">A router that keeps frontier quality at a fraction of the cost</h1>
+    <p class="lede" id="lede"></p>
+    <p class="sim-note">Every number here comes from a simulated five-model fleet with known price sheets, run on 1,500 held-out tasks graded by
+      deterministic checkers (unit tests, exact match, a groundedness check). The same code runs against Claude models via
+      <code>configs/fleet.claude.json</code>.</p>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <section>
+    <header>
+      <div class="eyebrow">Offline eval</div>
+      <h2>Quality against cost, every policy</h2>
+      <p class="muted">Each blue point is the router trained with a different cost weight λ. Up and to the left is better.
+        The oracle is the cheapest model that answered correctly, in hindsight; no router can reach it.</p>
+    </header>
+    <div class="fig">
+      <div class="legend" id="pareto-legend"></div>
+      <div id="pareto"></div>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <div class="eyebrow">Production replay · 6,000 requests</div>
+      <h2>Three incidents, with and without online learning</h2>
+      <p class="muted" id="drift-lede"></p>
+    </header>
+    <div class="fig">
+      <div class="fig-title">Answer quality, rolling 200 requests</div>
+      <div class="legend" id="drift-legend"></div>
+      <div id="drift-quality"></div>
+    </div>
+    <div class="grid2">
+      <div class="fig"><div class="fig-title">p95 latency (ms), rolling 200</div><div id="drift-latency"></div></div>
+      <div class="fig"><div class="fig-title">Cost per 1k requests ($), rolling 200</div><div id="drift-cost"></div></div>
+    </div>
+    <div class="fig">
+      <div class="fig-title">Where Switchboard sent traffic</div>
+      <div class="legend" id="share-legend"></div>
+      <div id="share"></div>
+    </div>
+    <div class="fig">
+      <div class="fig-title">Incident log</div>
+      <ol class="events" id="events"></ol>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <div class="eyebrow">Raw numbers</div>
+      <h2>Held-out benchmark</h2>
+    </header>
+    <div class="tbl-wrap"><table id="bench"></table></div>
+    <div class="tbl-wrap"><table id="cats"></table></div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const BENCH = /*BENCH*/null;
+const DRIFT = /*DRIFT*/null;
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+};
+const pct = v => (v * 100).toFixed(1) + "%";
+const usd = v => "$" + (v >= 1 ? v.toFixed(2) : v.toFixed(3));
+const fmtInt = v => Math.round(v).toLocaleString("en-US");
+
+const P = BENCH.policies, sb = P["switchboard"], fr = P["always-frontier"];
+const qRatio = sb.quality / fr.quality, costCut = 1 - sb.cost_per_1k / fr.cost_per_1k;
+document.getElementById("headline").textContent =
+  `${Math.round(qRatio * 100)}% of frontier quality at ${Math.round(costCut * 100)}% lower cost`;
+document.getElementById("lede").textContent =
+  `Switchboard routes each prompt to the cheapest model it predicts will get it right, learns from graded traffic, ` +
+  `and detects when a provider silently gets worse. On held-out tasks it scored ${pct(sb.quality)} against ` +
+  `${pct(fr.quality)} for always using the frontier model, and hand-written keyword rules scored ${pct(P["keyword-rules"].quality)}.`;
+
+const ds = DRIFT.series;
+const tiles = [
+  [pct(sb.quality), `answer quality (always-frontier: ${pct(fr.quality)})`],
+  [usd(sb.cost_per_1k), `per 1k requests (always-frontier: ${usd(fr.cost_per_1k)})`],
+  [fmtInt(sb.p95_ms) + " ms", `p95 latency (always-frontier: ${fmtInt(fr.p95_ms)} ms)`],
+  [fmtInt(ds["switchboard"].totals.p95_ms) + " ms", `p95 across the incident replay, brownout included (frozen router: ${fmtInt(ds["frozen-router"].totals.p95_ms)} ms)`],
+];
+document.getElementById("tiles").innerHTML = tiles.map(([n, l]) =>
+  `<div class="tile"><div class="num">${n}</div><div class="lbl">${l}</div></div>`).join("");
+
+/* ---------- shared chart frame ---------- */
+function frame(host, { w = 960, h = 280, x0, x1, y0, y1, xlog = false, xTicks, yTicks, xFmt, yFmt, xLabel, yLabel }) {
+  const m = { l: 56, r: 18, t: 12, b: 40 };
+  const svg = el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img" }, host);
+  const tx = xlog ? v => Math.log10(v) : v => v;
+  const sx = v => m.l + (tx(v) - tx(x0)) / (tx(x1) - tx(x0)) * (w - m.l - m.r);
+  const sy = v => h - m.b - (v - y0) / (y1 - y0) * (h - m.t - m.b);
+  for (const t of yTicks) {
+    el("line", { x1: m.l, x2: w - m.r, y1: sy(t), y2: sy(t), class: "gridline" }, svg);
+    el("text", { x: m.l - 8, y: sy(t) + 4, "text-anchor": "end" }, svg).textContent = yFmt(t);
+  }
+  el("line", { x1: m.l, x2: w - m.r, y1: h - m.b, y2: h - m.b, class: "axis" }, svg);
+  for (const t of xTicks) {
+    el("text", { x: sx(t), y: h - m.b + 16, "text-anchor": "middle" }, svg).textContent = xFmt(t);
+  }
+  if (xLabel) el("text", { x: (m.l + w - m.r) / 2, y: h - 4, "text-anchor": "middle" }, svg).textContent = xLabel;
+  if (yLabel) el("text", { x: 12, y: (m.t + h - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + h - m.b) / 2})` }, svg).textContent = yLabel;
+  return { svg, sx, sy, m, w, h };
+}
+
+function tooltip(host) {
+  const tip = document.createElement("div");
+  tip.className = "tip"; tip.hidden = true; host.style.position = "relative"; host.appendChild(tip);
+  return {
+    show(html, px, py) {
+      tip.innerHTML = html; tip.hidden = false;
+      const hw = host.clientWidth, tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(px + 14, 0), hw - tw) + "px";
+      tip.style.top = Math.max(py - 10, 0) + "px";
+    },
+    hide() { tip.hidden = true; },
+  };
+}
+
+function legend(id, items) {
+  document.getElementById(id).innerHTML = items.map(([name, color, kind = "line"]) =>
+    `<span><i class="sw ${kind}" style="background:${kind === "ring" ? "transparent" : color}"></i>${name}</span>`).join("");
+}
+
+/* ---------- Pareto ---------- */
+function drawPareto() {
+  const host = document.getElementById("pareto");
+  host.innerHTML = "";
+  const pts = [];
+  const add = (name, p, kind, color) => pts.push({ name, q: p.quality, c: p.cost_per_1k, p95: p.p95_ms, kind, color });
+  for (const m of BENCH.models) add(m.name, P["always-" + m.name], "single", css("--neutral-mark"));
+  add("keyword rules", P["keyword-rules"], "kw", css("--s2"));
+  add("cascade", P["cascade"], "cascade", css("--s3"));
+  add("oracle", P["oracle"], "oracle", css("--ink"));
+  const sweep = BENCH.pareto.map(p => ({ name: `Switchboard λ=${p.lam}`, q: p.quality, c: p.cost_per_1k, p95: p.p95_ms, kind: "router", color: css("--s1") }));
+  const all = pts.concat(sweep);
+  const f = frame(host, { x0: 0.008, x1: 2, y0: 0.4, y1: 1.0, xlog: true,
+    xTicks: [0.01, 0.03, 0.1, 0.3, 1], yTicks: [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+    xFmt: v => "$" + v, yFmt: v => Math.round(v * 100) + "%", xLabel: "cost per 1k requests (log scale)", yLabel: "quality" });
+  const sorted = [...sweep].sort((a, b) => a.c - b.c);
+  el("path", { d: sorted.map((p, i) => `${i ? "L" : "M"}${f.sx(p.c)},${f.sy(p.q)}`).join(""), fill: "none", stroke: css("--s1"), "stroke-width": 2 }, f.svg);
+  for (const p of all) {
+    const cx = f.sx(p.c), cy = f.sy(p.q);
+    if (p.kind === "oracle") el("circle", { cx, cy, r: 5, fill: css("--surface"), stroke: p.color, "stroke-width": 2 }, f.svg);
+    else el("circle", { cx, cy, r: p.kind === "router" ? 4.5 : 5, fill: p.color, stroke: css("--surface"), "stroke-width": 2 }, f.svg);
+    if (p.kind !== "router") {
+      const right = cx < f.w - 120;
+      el("text", { x: cx + (right ? 9 : -9), y: cy + 4, "text-anchor": right ? "start" : "end" }, f.svg).textContent = p.name;
+    }
+  }
+  const chosen = sweep.find(p => Math.abs(p.c - sb.cost_per_1k) < 1e-9) || null;
+  const tip = tooltip(host);
+  const hit = el("rect", { x: f.m.l, y: f.m.t, width: f.w - f.m.l - f.m.r, height: f.h - f.m.t - f.m.b, fill: "transparent" }, f.svg);
+  hit.addEventListener("mousemove", e => {
+    const r = f.svg.getBoundingClientRect(), k = f.w / r.width;
+    const mx = (e.clientX - r.left) * k, my = (e.clientY - r.top) * k;
+    let best = null, bd = 1e9;
+    for (const p of all) { const d = Math.hypot(f.sx(p.c) - mx, f.sy(p.q) - my); if (d < bd) { bd = d; best = p; } }
+    if (!best || bd > 28) return tip.hide();
+    tip.show(`<b>${best.name}</b><div class="row"><span>quality</span><span>${pct(best.q)}</span></div>` +
+      `<div class="row"><span>$/1k req</span><span>${usd(best.c)}</span></div><div class="row"><span>p95</span><span>${fmtInt(best.p95)} ms</span></div>`,
+      f.sx(best.c) / k, f.sy(best.q) / k);
+  });
+  hit.addEventListener("mouseleave", () => tip.hide());
+  legend("pareto-legend", [["Switchboard (λ sweep)", css("--s1"), "dot"], ["single model", css("--neutral-mark"), "dot"],
+    ["keyword rules", css("--s2"), "dot"], ["self-consistency cascade", css("--s3"), "dot"], ["oracle (hindsight)", css("--ink"), "ring"]]);
+}
+
+/* ---------- drift timelines ---------- */
+const POLICIES = [["switchboard", "Switchboard (online learning)", "--s1"], ["frozen-router", "same router, frozen", "--s2"], ["always-frontier", "always frontier", "--s3"]];
+const T = ds["switchboard"].t, N = DRIFT.config.n;
+
+function lineChart(id, key, { y0, y1, yTicks, yFmt, h = 260, w = 960 }) {
+  const host = document.getElementById(id);
+  host.innerHTML = "";
+  const f = frame(host, { w, h, x0: T[0], x1: N, y0, y1, xTicks: [1000, 2000, 3000, 4000, 5000, 6000].filter(v => v <= N),
+    yTicks, xFmt: v => (v / 1000) + "k", yFmt, xLabel: "request #" });
+  for (const inc of DRIFT.incidents) {
+    el("line", { x1: f.sx(inc.t), x2: f.sx(inc.t), y1: f.m.t, y2: f.h - f.m.b, stroke: css("--incident"), "stroke-dasharray": "3 4", "stroke-width": 1 }, f.svg);
+  }
+  const clamp = v => Math.min(Math.max(v, y0), y1);
+  for (const [name, , tok] of POLICIES) {
+    const vals = ds[name][key];
+    el("path", { d: vals.map((v, i) => `${i ? "L" : "M"}${f.sx(T[i]).toFixed(1)},${f.sy(clamp(v)).toFixed(1)}`).join(""),
+      fill: "none", stroke: css(tok), "stroke-width": 2, "stroke-linejoin": "round" }, f.svg);
+  }
+  const cross = el("line", { y1: f.m.t, y2: f.h - f.m.b, stroke: css("--faint"), "stroke-width": 1, visibility: "hidden" }, f.svg);
+  const dots = POLICIES.map(([, , tok]) => el("circle", { r: 4, fill: css(tok), stroke: css("--surface"), "stroke-width": 2, visibility: "hidden" }, f.svg));
+  const tip = tooltip(host);
+  const hit = el("rect", { x: f.m.l, y: f.m.t, width: f.w - f.m.l - f.m.r, height: f.h - f.m.t - f.m.b, fill: "transparent" }, f.svg);
+  hit.addEventListener("mousemove", e => {
+    const r = f.svg.getBoundingClientRect(), k = f.w / r.width;
+    const mx = (e.clientX - r.left) * k;
+    let i = 0, bd = 1e9;
+    T.forEach((t, j) => { const d = Math.abs(f.sx(t) - mx); if (d < bd) { bd = d; i = j; } });
+    const x = f.sx(T[i]);
+    cross.setAttribute("x1", x); cross.setAttribute("x2", x); cross.setAttribute("visibility", "visible");
+    POLICIES.forEach(([name], j) => { dots[j].setAttribute("cx", x); dots[j].setAttribute("cy", f.sy(clamp(ds[name][key][i]))); dots[j].setAttribute("visibility", "visible"); });
+    tip.show(`<b>requests ${fmtInt(T[i] - DRIFT.config.window)}–${fmtInt(T[i])}</b>` +
+      POLICIES.map(([name, label]) => `<div class="row"><span>${label.split(" (")[0]}</span><span>${yFmt(ds[name][key][i], true)}</span></div>`).join(""),
+      x / k, f.m.t / k);
+  });
+  hit.addEventListener("mouseleave", () => { tip.hide(); cross.setAttribute("visibility", "hidden"); dots.forEach(d => d.setAttribute("visibility", "hidden")); });
+}
+
+function shareChart() {
+  const host = document.getElementById("share");
+  host.innerHTML = "";
+  const models = BENCH.models.map(m => m.name);
+  const toks = ["--s1", "--s2", "--s3", "--s4", "--s5"];
+  const f = frame(host, { h: 220, x0: T[0], x1: N, y0: 0, y1: 1, xTicks: [1000, 2000, 3000, 4000, 5000, 6000].filter(v => v <= N),
+    yTicks: [0, 0.25, 0.5, 0.75, 1], xFmt: v => (v / 1000) + "k", yFmt: v => Math.round(v * 100) + "%", xLabel: "request #" });
+  const base = T.map(() => 0);
+  models.forEach((m, j) => {
+    const vals = DRIFT.share[m];
+    const top = base.map((b, i) => b + vals[i]);
+    const d = T.map((t, i) => `${i ? "L" : "M"}${f.sx(t).toFixed(1)},${f.sy(top[i]).toFixed(1)}`).join("") +
+      T.slice().reverse().map((t, i) => `L${f.sx(t).toFixed(1)},${f.sy(base[T.length - 1 - i]).toFixed(1)}`).join("") + "Z";
+    el("path", { d, fill: css(toks[j]), stroke: css("--surface"), "stroke-width": 1.5, "fill-opacity": 0.9 }, f.svg);
+    top.forEach((v, i) => base[i] = v);
+  });
+  for (const inc of DRIFT.incidents)
+    el("line", { x1: f.sx(inc.t), x2: f.sx(inc.t), y1: f.m.t, y2: f.h - f.m.b, stroke: css("--ink"), "stroke-dasharray": "3 4", "stroke-width": 1 }, f.svg);
+  const tip = tooltip(host);
+  const hit = el("rect", { x: f.m.l, y: f.m.t, width: f.w - f.m.l - f.m.r, height: f.h - f.m.t - f.m.b, fill: "transparent" }, f.svg);
+  hit.addEventListener("mousemove", e => {
+    const r = f.svg.getBoundingClientRect(), k = f.w / r.width, mx = (e.clientX - r.left) * k;
+    let i = 0, bd = 1e9;
+    T.forEach((t, j) => { const d = Math.abs(f.sx(t) - mx); if (d < bd) { bd = d; i = j; } });
+    tip.show(`<b>requests ${fmtInt(T[i] - DRIFT.config.window)}–${fmtInt(T[i])}</b>` +
+      models.slice().reverse().map(m => `<div class="row"><span>${m}</span><span>${pct(DRIFT.share[m][i])}</span></div>`).join(""), f.sx(T[i]) / k, f.m.t / k);
+  });
+  hit.addEventListener("mouseleave", () => tip.hide());
+  legend("share-legend", models.map((m, j) => [m, css(toks[j]), "dot"]));
+}
+
+function drawDrift() {
+  const s = ds["switchboard"].totals, z = ds["frozen-router"].totals;
+  document.getElementById("drift-lede").textContent =
+    `Labels arrive for 30% of requests, ${Math.round(DRIFT.config.probe_rate * 100)}% get a shadow call to another model, and requests carry a ` +
+    `${fmtInt(DRIFT.config.latency_slo_ms)} ms latency budget. Across the replay Switchboard averaged ${pct(s.quality)} quality at ${usd(s.cost_per_1k)} per 1k; ` +
+    `the frozen copy of the same router averaged ${pct(z.quality)} at ${usd(z.cost_per_1k)}. Dashed lines mark the incidents.`;
+  legend("drift-legend", POLICIES.map(([, label, tok]) => [label, css(tok)]).concat([["incident", css("--incident")]]));
+  lineChart("drift-quality", "quality", { y0: 0.7, y1: 1.0, yTicks: [0.7, 0.8, 0.9, 1.0], yFmt: v => Math.round(v * 100) + "%" });
+  lineChart("drift-latency", "p95_ms", { w: 480, h: 300, y0: 0, y1: 14000, yTicks: [0, 3500, 7000, 10500, 14000], yFmt: v => fmtInt(v) });
+  lineChart("drift-cost", "cost_per_1k", { w: 480, h: 300, y0: 0, y1: 1.4, yTicks: [0, 0.35, 0.7, 1.05, 1.4], yFmt: (v, tip) => tip ? usd(v) : "$" + v.toFixed(2) });
+  shareChart();
+  const ev = DRIFT.incidents.map(i => ({ t: i.t, html: `<span class="pill inc">incident</span>${i.label}` }))
+    .concat(DRIFT.alerts.map(a => ({ t: a.t, html: `<span class="pill alert">alarm</span><code>${a.kind}</code> on <code>${a.model}</code>` +
+      (a.kind === "quality_drop" ? ", router forgets most of what it knew about this model" : "") })))
+    .sort((a, b) => a.t - b.t);
+  document.getElementById("events").innerHTML = ev.map(e => `<li><span class="t">#${fmtInt(e.t)}</span><span>${e.html}</span></li>`).join("");
+}
+
+/* ---------- tables ---------- */
+function tables() {
+  const order = ["switchboard", "keyword-rules", "cascade", "random", ...BENCH.models.map(m => "always-" + m.name), "oracle"];
+  const rows = order.filter(k => P[k]).map(k => {
+    const p = P[k], cls = k === "switchboard" ? "hl" : k === "oracle" ? "ref" : "";
+    return `<tr class="${cls}"><td>${k}</td><td>${pct(p.quality)}</td><td>${pct(p.hallucination_rate)}</td><td>${usd(p.cost_per_1k)}</td><td>${fmtInt(p.p50_ms)}</td><td>${fmtInt(p.p95_ms)}</td></tr>`;
+  });
+  document.getElementById("bench").innerHTML =
+    `<thead><tr><th>policy</th><th>quality</th><th>hallucination (RAG)</th><th>$ / 1k req</th><th>p50 ms</th><th>p95 ms</th></tr></thead><tbody>${rows.join("")}</tbody>`;
+  const cats = Object.keys(sb.by_category);
+  const show = ["switchboard", "keyword-rules", "always-pro", "always-frontier"].filter(k => P[k]);
+  document.getElementById("cats").innerHTML =
+    `<thead><tr><th>quality by task type</th>${show.map(k => `<th>${k}</th>`).join("")}</tr></thead><tbody>` +
+    cats.map(c => `<tr><td>${c}</td>${show.map(k => `<td>${pct(P[k].by_category[c] ?? 0)}</td>`).join("")}</tr>`).join("") + `</tbody>`;
+  const c = BENCH.config;
+  document.getElementById("foot").innerHTML =
+    `Fleet <code>${c.fleet}</code> · ${fmtInt(c.n_train)} train / ${fmtInt(c.n_test)} test tasks · λ=${c.lam} · seed ${c.seed}. ` +
+    `Shadow probes added ${usd(DRIFT.probe_cost_per_1k)} per 1k requests. Regenerate with <code>python -m switchboard report</code>.`;
+}
+
+function render() { drawPareto(); drawDrift(); tables(); }
+render();
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>

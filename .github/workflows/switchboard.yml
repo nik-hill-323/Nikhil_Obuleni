@@ -1,0 +1,27 @@
+name: Switchboard eval gate
+
+on:
+  push:
+    paths: ["projects/switchboard/**", ".github/workflows/switchboard.yml"]
+  pull_request:
+    paths: ["projects/switchboard/**", ".github/workflows/switchboard.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/switchboard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy
+      - name: Unit and behaviour tests
+        run: python -m unittest discover -s tests -v
+      - name: Eval regression gate
+        run: python -m switchboard gate

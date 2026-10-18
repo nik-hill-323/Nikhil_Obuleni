@@ -1,0 +1,22 @@
+[project]
+name = "switchboard"
+version = "0.1.0"
+description = "Self-tuning LLM router with built-in evals, drift detection and a CI quality gate"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+claude = ["anthropic"]
+
+[project.scripts]
+switchboard = "switchboard.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["switchboard"]
+
+[tool.setuptools.package-data]
+switchboard = ["*.html"]

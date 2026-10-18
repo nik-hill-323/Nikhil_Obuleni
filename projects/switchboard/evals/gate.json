@@ -1,0 +1,10 @@
+{
+  "_comment": "CI fails a router change that breaks any of these. Baseline lives in evals/baseline.json; refresh it deliberately with `python -m switchboard gate --update-baseline`.",
+  "n_train": 800,
+  "n_test": 800,
+  "reference_policy": "always-frontier",
+  "max_quality_drop": 0.01,
+  "max_cost_increase": 0.10,
+  "max_hallucination_rate": 0.08,
+  "min_quality_vs_reference": 0.95
+}

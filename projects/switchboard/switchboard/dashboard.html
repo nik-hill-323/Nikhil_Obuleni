@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switchboard Live</title>
+<style>
+/* Layout: status strip, per-model lines, then recent traces and alarms side by side. */
+:root {
+  --bg: #f5f6f8; --surface: #ffffff; --ink: #14171c; --muted: #5a6170; --rule: #dde1e7; --accent: #2a78d6;
+  --good: #1a7f3c; --bad: #b4251c;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root { --bg: #111317; --surface: #191c21; --ink: #eceef2; --muted: #a3a9b5;
+  --rule: #2c313a; --accent: #3987e5; --good: #4cbb6c; --bad: #e66767; color-scheme: dark; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 var(--body); }
+main { max-width: 1100px; margin: 0 auto; padding-block: 28px; padding-inline: max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 20px; }
+h1 { margin: 0; font-size: 22px; }
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.k { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; }
+.k b { display: block; font: 600 22px var(--mono); font-variant-numeric: tabular-nums; }
+.k span { color: var(--muted); font-size: 12px; }
+.cols { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; }
+@media (max-width: 800px) { .cols { grid-template-columns: 1fr; } }
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; overflow-x: auto; min-width: 0; }
+.panel h2 { font-size: 13px; margin: 0; padding: 10px 14px; border-bottom: 1px solid var(--rule); color: var(--muted); font-weight: 500; }
+table { border-collapse: collapse; width: 100%; font: 12.5px var(--mono); font-variant-numeric: tabular-nums; }
+td, th { padding: 6px 14px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--rule); }
+td:first-child, th:first-child { text-align: left; }
+th { color: var(--muted); font-weight: 500; }
+.bar { height: 6px; background: var(--accent); border-radius: 3px; }
+.bad { color: var(--bad); } .good { color: var(--good); }
+ul { list-style: none; margin: 0; padding: 8px 14px; display: grid; gap: 6px; font: 12.5px var(--mono); }
+form { display: flex; gap: 8px; flex-wrap: wrap; }
+input { flex: 1 1 320px; font: 14px var(--body); padding: 8px 10px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); color: var(--ink); }
+button { font: 500 14px var(--body); padding: 8px 14px; border: 0; border-radius: 4px; background: var(--accent); color: #fff; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+pre { margin: 0; padding: 10px 14px; font: 12px var(--mono); white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Switchboard live</h1>
+  <div class="strip" id="strip"></div>
+  <form id="try">
+    <input id="prompt" value="Write a Python function `dedupe(xs)` that removes duplicates while preserving order." aria-label="Prompt">
+    <button type="submit">Route this prompt</button>
+  </form>
+  <div class="panel" id="route-out" hidden><h2>Routing decision</h2><pre id="route-pre"></pre></div>
+  <div class="panel"><h2>Models, last 2 minutes</h2><table id="models"></table></div>
+  <div class="cols">
+    <div class="panel"><h2>Recent requests</h2><table id="recent"></table></div>
+    <div class="panel"><h2>Drift alarms</h2><ul id="alerts"></ul></div>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const usd = v => "$" + v.toFixed(v < 0.01 ? 5 : 3);
+async function tick() {
+  let s;
+  try { s = await (await fetch("/api/stats")).json(); } catch { return; }
+  const models = Object.entries(s.models);
+  const n = models.reduce((a, [, v]) => a + v.requests, 0);
+  const labeled = models.filter(([, v]) => v.quality !== null);
+  const q = labeled.reduce((a, [, v]) => a + v.quality * v.labeled, 0) / Math.max(1, labeled.reduce((a, [, v]) => a + v.labeled, 0));
+  $("strip").innerHTML = [
+    [s.requests_total.toLocaleString(), "requests served"], [usd(s.cost_total), "total spend"],
+    [Math.round(s.p95_ms) + " ms", "p95, last 2 min"], [(q * 100).toFixed(1) + "%", "graded quality, last 2 min"],
+    [s.router_version, "router version"],
+  ].map(([b, l]) => `<div class="k"><b>${b}</b><span>${l}</span></div>`).join("");
+  $("models").innerHTML = `<tr><th>model</th><th>share</th><th></th><th>requests</th><th>spend</th><th>avg ms</th><th>slowdown</th><th>quality</th><th>flagged claims</th></tr>` +
+    models.sort((a, b) => b[1].requests - a[1].requests).map(([m, v]) => `<tr><td>${m}</td><td>${(100 * v.requests / Math.max(1, n)).toFixed(0)}%</td>
+      <td style="width:120px"><div class="bar" style="width:${100 * v.requests / Math.max(1, n)}%"></div></td><td>${v.requests}</td><td>${usd(v.cost)}</td>
+      <td>${Math.round(v.avg_latency_ms)}</td><td class="${s.slowdown[m] > 1.5 ? "bad" : ""}">${(s.slowdown[m] ?? 1).toFixed(2)}×</td>
+      <td>${v.quality === null ? "–" : (v.quality * 100).toFixed(1) + "%"}</td><td class="${v.hallucinations ? "bad" : ""}">${v.hallucinations}</td></tr>`).join("");
+  $("recent").innerHTML = `<tr><th>trace</th><th>model</th><th>cost</th><th>ms</th><th>grade</th></tr>` + s.recent.map(r =>
+    `<tr><td>${r.id.slice(0, 8)}</td><td>${r.model}</td><td>${usd(r.cost)}</td><td>${Math.round(r.latency_ms)}</td>
+     <td class="${r.quality === 0 || r.hallucinated ? "bad" : r.quality === 1 ? "good" : ""}">${r.hallucinated ? "unsupported claim" : r.quality === null ? "–" : r.quality}</td></tr>`).join("");
+  $("alerts").innerHTML = s.alerts.length ? s.alerts.slice().reverse().map(a => `<li><span class="bad">${a.kind}</span> on ${a.model}</li>`).join("")
+    : "<li>No alarms. Quality and latency detectors are watching every model.</li>";
+}
+$("try").addEventListener("submit", async e => {
+  e.preventDefault();
+  const r = await (await fetch("/v1/route", { method: "POST", body: JSON.stringify({ prompt: $("prompt").value }) })).json();
+  if (r.error) { $("route-pre").textContent = r.error; $("route-out").hidden = false; return; }
+  $("route-pre").textContent = `→ ${r.model}\n\n` + Object.entries(r.scores).sort((a, b) => b[1].score - a[1].score)
+    .map(([m, v]) => `${m.padEnd(10)} expected reward ${v.pred_reward.toFixed(3)}   est ${usd(v.est_cost)}   ${v.est_latency_ms} ms   score ${v.score.toFixed(3)}`).join("\n");
+  $("route-out").hidden = false;
+});
+tick(); setInterval(tick, 2000);
+</script>
+</body>
+</html>

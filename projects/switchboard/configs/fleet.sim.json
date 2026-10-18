@@ -1,0 +1,20 @@
+{
+  "_comment": "Simulated fleet. Prices are $/1M tokens and sit in the same bands as real small/medium/large/frontier tiers; skills are the logit-scale ability per task category.",
+  "models": [
+    {"name": "nano",     "price_in": 0.10, "price_out": 0.40,  "latency_ms": 120, "ms_per_token": 3,
+     "hallucination": 0.30,
+     "skills": {"format": 0.75, "classify": 0.45, "extract": 0.40, "math": 0.20, "reasoning": 0.05, "code": 0.20, "rag_qa": 0.40}},
+    {"name": "mini",     "price_in": 0.40, "price_out": 1.60,  "latency_ms": 200, "ms_per_token": 5,
+     "hallucination": 0.18,
+     "skills": {"format": 0.85, "classify": 0.65, "extract": 0.70, "math": 0.45, "reasoning": 0.30, "code": 0.45, "rag_qa": 0.60}},
+    {"name": "coder",    "price_in": 0.60, "price_out": 2.40,  "latency_ms": 260, "ms_per_token": 6,
+     "hallucination": 0.15,
+     "skills": {"format": 0.70, "classify": 0.50, "extract": 0.60, "math": 0.70, "reasoning": 0.45, "code": 1.00, "rag_qa": 0.45}},
+    {"name": "pro",      "price_in": 2.00, "price_out": 10.00, "latency_ms": 450, "ms_per_token": 10,
+     "hallucination": 0.08,
+     "skills": {"format": 0.95, "classify": 0.80, "extract": 0.90, "math": 0.80, "reasoning": 0.75, "code": 0.85, "rag_qa": 0.85}},
+    {"name": "frontier", "price_in": 8.00, "price_out": 32.00, "latency_ms": 900, "ms_per_token": 16,
+     "hallucination": 0.03,
+     "skills": {"format": 1.00, "classify": 0.90, "extract": 0.95, "math": 0.95, "reasoning": 1.05, "code": 0.98, "rag_qa": 0.95}}
+  ]
+}
